@@ -86,19 +86,19 @@
         @yield('content')
     </main>
 
-    <footer class="bg-[#0f172a] text-white py-12 mt-auto border-t border-gray-800">
+    <footer class="bg-teal-900 text-white py-12 mt-auto border-t border-teal-800">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
 
                 <div class="col-span-1 md:col-span-2 space-y-4">
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                    <p class="text-teal-200 text-sm leading-relaxed max-w-sm">
                         Platform crowdfunding paling transparan di Indonesia. Kami menjamin setiap rupiah donasi Anda tersalurkan dengan bukti nyata dan laporan akuntabel.
                     </p>
                 </div>
 
                 <div>
                     <h4 class="font-bold mb-4 text-white uppercase tracking-wider text-xs">Menu Pintas</h4>
-                    <ul class="text-sm text-gray-400 space-y-2">
+                    <ul class="text-sm text-teal-200 space-y-2">
                         <li><a href="{{ route('home') }}" class="hover:text-saku-primary transition">Program Donasi</a></li>
                         <li><a href="{{ route('track') }}" class="hover:text-saku-primary transition">Cek Status Donasi</a></li>
                         <li><a href="{{ route('about') }}" class="hover:text-saku-primary transition">Laporan Audit</a></li>
@@ -107,23 +107,23 @@
 
                 <div>
                     <h4 class="font-bold mb-4 text-white uppercase tracking-wider text-xs">Hubungi Kami</h4>
-                    <p class="text-sm text-gray-400 mb-3 flex items-center gap-3">
+                    <p class="text-sm text-teal-200 mb-3 flex items-center gap-3">
                         <i class="fas fa-envelope text-saku-primary"></i>
                         <a href="mailto:help@sakuhati.org" class="hover:text-white transition">help@sakuhati.org</a>
                     </p>
-                    <p class="text-sm text-gray-400 flex items-center gap-3">
+                    <p class="text-sm text-teal-200 flex items-center gap-3">
                         <i class="fas fa-phone text-hati-red"></i>
                         <span>+62 812-3456-7890</span>
                     </p>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+            <div class="border-t border-teal-800 pt-8 text-center text-sm text-teal-200">
                 <a href="{{ route('home') }}" class="inline-flex items-center justify-center">
-                    <img src="/images/logo-saku-hati.png" alt="Logo Saku Hati"
-                        class="h-8 w-auto brightness-0 invert"
-                        style="filter: invert(100%);">
+                    <img src="/images/logo-saku-hati-dark.png" alt="Logo Saku Hati"
+                        class="h-8 w-auto">
                 </a>
+                <p class="mt-4">Hak Cipta © 2025 Saku Hati. Semua Hak Dilindungi.</p>
             </div>
         </div>
     </footer>

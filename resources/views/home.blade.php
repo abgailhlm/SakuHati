@@ -32,7 +32,7 @@
 
             {{-- Merged the anchor tag destination to #program-list (from fix-bug) --}}
             <a href="#program-list" class="group block p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition transform cursor-pointer shadow-lg">
-                <h3 class="text-3xl font-bold text-hati-red group-hover:text-white transition">{{ number_format($stats['penerima_manfaat']) }}</h3>
+                <h3 class="text-3xl font-bold text-rose-300 group-hover:text-white transition">{{ number_format($stats['penerima_manfaat']) }}</h3>
                 <p class="text-sm font-medium text-teal-100 mt-1 flex justify-center items-center gap-2">
                     Penerima Manfaat <i class="fas fa-smile-beam opacity-0 group-hover:opacity-100 transition"></i>
                 </p>
