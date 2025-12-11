@@ -1,0 +1,19 @@
+{
+  "form.title": "Student Registration",
+  "form.nim": "Student ID",
+  "form.nim_placeholder": "Enter student ID",
+  "form.nim_required_info": "Student ID is required.",
+  "form.name": "Full Name",
+  "form.name_placeholder": "Enter full name",
+  "form.gender": "Gender",
+  "form.male": "Male",
+  "form.female": "Female",
+  "form.major": "Major",
+  "form.select_major": "-- Select Major --",
+  "form.majors.ti": "Computer Science",
+  "form.majors.si": "Information Systems",
+  "form.majors.tk": "Computer Engineering",
+  "form.address": "Address",
+  "form.submit": "Register",
+  "form.success": "Registration successful (demo)."
+}
