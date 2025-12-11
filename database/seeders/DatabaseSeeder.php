@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // === DATA PROGRAM (10 Program Lengkap) ===
+        // === DATA PROGRAM (10 Program Lengkap + Lokasi Penyaluran) ===
         $programsData = [
             // 1. Pembangunan Sumur Air Bersih Darurat (Urgent)
             [
@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 17500000,
                 'impact_formula' => 'Rp 100.000 = 1 Meter Pipa Air',
                 'deadline' => now()->addDays(15),
+                'destination_location' => 'Nusa Tenggara Timur',
                 'created_at' => now(),
             ],
             // 2. Bantuan Makanan Darurat – Lombok
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 25630000,
                 'impact_formula' => 'Rp 100.000 = 1 Paket Makanan',
                 'deadline' => now()->addDays(20),
+                'destination_location' => 'Lombok, Nusa Tenggara Barat',
                 'created_at' => now()->subDays(1),
             ],
             // 3. Layanan Kesehatan untuk Pengungsi
@@ -46,6 +48,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 12485000,
                 'impact_formula' => 'Rp 50.000 = 1x Konsultasi Medis',
                 'deadline' => now()->addDays(35),
+                'destination_location' => 'Pos Pengungsian, Jawa Barat',
                 'created_at' => now()->subDays(2),
             ],
             // 4. Dukungan Pendidikan Anak
@@ -58,6 +61,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 8210000,
                 'impact_formula' => 'Rp 200.000 = SPP 1 Bulan',
                 'deadline' => now()->addDays(10),
+                'destination_location' => 'Jakarta Timur, DKI Jakarta',
                 'created_at' => now()->subDays(3),
             ],
             // 5. Akses Air Bersih di Kenya
@@ -70,6 +74,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 35720000,
                 'impact_formula' => 'Rp 100.000 = 1 Meter Pipa Air',
                 'deadline' => now()->addDays(90),
+                'destination_location' => 'Turkana, Kenya',
                 'created_at' => now()->subDays(4),
             ],
             // 6. Program Penampungan Pemulihan Bencana
@@ -82,6 +87,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 19180000,
                 'impact_formula' => 'Rp 500.000 = Material Penampungan',
                 'deadline' => now()->addDays(5),
+                'destination_location' => 'Cianjur, Jawa Barat',
                 'created_at' => now()->subDays(5),
             ],
             // 7. Inisiatif Gizi Komunitas
@@ -94,6 +100,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 3399000,
                 'impact_formula' => 'Rp 25.000 = 1 Porsi Makanan Sehat',
                 'deadline' => now()->addDays(45),
+                'destination_location' => 'Kupang, Nusa Tenggara Timur',
                 'created_at' => now()->subDays(6),
             ],
             // 8. Dukungan Pendidikan Pedesaan
@@ -106,6 +113,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 15200000,
                 'impact_formula' => 'Rp 500.000 = 1 Meja Belajar',
                 'deadline' => now()->addDays(20),
+                'destination_location' => 'Kabupaten Sumbawa, Nusa Tenggara Barat',
                 'created_at' => now()->subDays(7),
             ],
             // 9. Dana Medis Darurat
@@ -118,6 +126,7 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 22450000,
                 'impact_formula' => 'Rp 100.000 = 1 Kotak Obat P3K',
                 'deadline' => now()->addDays(12),
+                'destination_location' => 'Area Terdampak Bencana Nasional',
                 'created_at' => now()->subDays(8),
             ],
             // 10. Perlengkapan Sekolah untuk Anak
@@ -130,10 +139,10 @@ class DatabaseSeeder extends Seeder
                 'collected_amount' => 7800000,
                 'impact_formula' => 'Rp 150.000 = 1 Set Alat Sekolah',
                 'deadline' => now()->addDays(60),
+                'destination_location' => 'Bogor, Jawa Barat',
                 'created_at' => now()->subDays(9),
             ],
         ];
-
 
         // 1. DATA USER LOGIN
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -143,7 +152,7 @@ class DatabaseSeeder extends Seeder
         $user = DB::table('users')->insertGetId([
             'name' => 'Donatur Dermawan',
             'email' => 'user@demo.com',
-            'password' => Hash::make('password'), // Kata Sandi: password
+            'password' => Hash::make('password'),
             'role' => 'donor',
             'created_at' => now(),
         ]);
@@ -153,16 +162,14 @@ class DatabaseSeeder extends Seeder
         DB::table('programs')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        // Memasukkan 10 Program dan mendapatkan ID-nya
         $programIds = [];
         foreach ($programsData as $data) {
             $programIds[] = DB::table('programs')->insertGetId($data);
         }
 
-        // Definisikan prog1, prog2, prog3
-        $prog1 = $programIds[0]; // Pembangunan Sumur Darurat (Index 0)
-        $prog2 = $programIds[4]; // Akses Air Bersih di Kenya (Index 4)
-        $prog3 = $programIds[3]; // Dukungan Pendidikan Anak (Index 3)
+        $prog1 = $programIds[0];
+        $prog2 = $programIds[4];
+        $prog3 = $programIds[3];
 
         // 3. DATA DONASI
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -170,7 +177,6 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         DB::table('donations')->insert([
-            // --- DONASI MILIK USER YANG LOGIN ---
             [
                 'program_id' => $prog1,
                 'user_id' => $user,
@@ -178,7 +184,7 @@ class DatabaseSeeder extends Seeder
                 'donor_email' => 'user@demo.com',
                 'tracking_code' => 'TRX-999',
                 'amount' => 1000000,
-                'status' => 'distributed', // Terdistribusi
+                'status' => 'distributed',
                 'distribution_proof' => 'Foto serah terima bantuan logistik #Batch1',
                 'distributed_at' => now()->subDays(5),
                 'created_at' => now()->subDays(7)
@@ -190,7 +196,7 @@ class DatabaseSeeder extends Seeder
                 'donor_email' => 'user@demo.com',
                 'tracking_code' => 'TRX-888',
                 'amount' => 500000,
-                'status' => 'verified', // Terverifikasi
+                'status' => 'verified',
                 'distribution_proof' => null,
                 'distributed_at' => null,
                 'created_at' => now()->subDays(2)
@@ -202,13 +208,11 @@ class DatabaseSeeder extends Seeder
                 'donor_email' => 'user@demo.com',
                 'tracking_code' => 'TRX-777',
                 'amount' => 200000,
-                'status' => 'pending', // Menunggu Pembayaran
+                'status' => 'pending',
                 'distribution_proof' => null,
                 'distributed_at' => null,
                 'created_at' => now()->subHours(1)
             ],
-
-            // --- DONASI ORANG LAIN ---
             [
                 'program_id' => $prog1,
                 'user_id' => null,
@@ -294,7 +298,7 @@ class DatabaseSeeder extends Seeder
             ['program_id' => $prog1, 'allocation_name' => 'Obat-obatan', 'amount' => 50000000, 'percentage' => '10%', 'created_at' => now()],
         ]);
 
-        // 5. UPDATE CERITA (STORYTELLING)
+        // 5. UPDATE CERITA
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('program_updates')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

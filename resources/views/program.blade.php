@@ -16,13 +16,22 @@
             <div class="md:col-span-2">
                 <div class="bg-white rounded-2xl shadow-sm p-8 mb-8">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ $program->title }}</h1>
-                    <div class="flex items-center gap-4 mb-6 text-sm text-gray-500">
+
+                    {{-- Info deadline & kategori --}}
+                    <div class="flex items-center gap-4 mb-4 text-sm text-gray-500">
                         <span><i class="far fa-clock"></i> Tenggat Waktu: {{ \Carbon\Carbon::parse($program->deadline)->format('d M Y') }}</span>
-                        <span class="px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm 
-                            {{ $program->category == 'Darurat' ? 'bg-hati-red' : ($program->category == 'Mendesak' ? 'bg-orange-500' : 'bg-saku-primary') }}">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm {{ $program->category == 'Darurat' ? 'bg-hati-red' : ($program->category == 'Mendesak' ? 'bg-orange-500' : 'bg-saku-primary') }}">
                             {{ $program->category }}
                         </span>
                     </div>
+
+                    {{-- Lokasi singkat di dekat judul (opsional) --}}
+                    @if (!empty($program->destination_location))
+                    <div class="mb-4 text-sm text-gray-600 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-saku-primary"></i>
+                        <span>Lokasi penyaluran: <span class="font-semibold">{{ $program->destination_location }}</span></span>
+                    </div>
+                    @endif
 
                     @if(isset($program->image))
                     <div class="mb-6 rounded-xl overflow-hidden shadow-md">
@@ -33,6 +42,7 @@
                     <p class="text-gray-700 leading-relaxed text-lg">{{ $program->description }}</p>
                 </div>
 
+                {{-- Pembaruan Lapangan --}}
                 <div class="bg-white rounded-2xl shadow-sm p-8">
                     <h3 class="font-bold text-xl border-b pb-4 mb-6 flex items-center gap-2">
                         <i class="fas fa-bullhorn text-saku-primary"></i> Pembaruan Lapangan (Kisah Nyata)
@@ -73,16 +83,34 @@
                     @endif
                 </div>
 
+                {{-- Lokasi Penyaluran + Google Maps --}}
                 <div class="mt-8 bg-white rounded-2xl shadow-sm p-8">
-                    <h3 class="font-bold text-lg mb-4">Lokasi Penyaluran</h3>
-                    <div class="bg-gray-100 rounded-xl h-64 flex flex-col items-center justify-center text-gray-400">
-                        <i class="fas fa-map-marked-alt text-4xl mb-2"></i>
-                        <p class="font-bold">Peta Interaktif Google Maps</p>
-                        <p class="text-xs">(Akan tampil di sini)</p>
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                        <i class="fas fa-map-marked-alt text-saku-primary"></i>
+                        <span>Lokasi Penyaluran</span>
+                    </h3>
+
+                    @if (!empty($program->destination_location))
+                    <p class="text-sm text-gray-600 mb-3 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-saku-primary"></i>
+                        <span>{{ $program->destination_location }}</span>
+                    </p>
+
+                    <div class="rounded-2xl overflow-hidden shadow-lg h-64 md:h-80 border border-gray-200">
+                        <iframe width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps?q={{ urlencode($program->destination_location) }}&output=embed">
+                        </iframe>
                     </div>
+                    @else
+                    <div class="bg-gray-100 rounded-xl h-40 flex flex-col items-center justify-center text-gray-400">
+                        <i class="fas fa-map-marker-alt text-3xl mb-2"></i>
+                        <p class="font-semibold text-sm">Lokasi penyaluran belum diatur.</p>
+                    </div>
+                    @endif
                 </div>
             </div>
 
+            {{-- Sidebar kanan --}}
             <div class="md:col-span-1">
                 <div class="bg-white shadow-lg rounded-2xl p-6 sticky top-24 border border-teal-50">
                     <div class="mb-6">
@@ -91,13 +119,12 @@
                         <p class="text-xs text-gray-400">dari target Rp {{ number_format($program->target_amount) }}</p>
 
                         <div class="w-full bg-gray-100 rounded-full h-2 mt-3">
-                            <div class="bg-saku-primary h-2 rounded-full" style="width: {{ min(($program->collected_amount/$program->target_amount)*100, 100) }}%"></div>
+                            <div class="bg-saku-primary h-2 rounded-full" style="width: {{ min(($program->collected_amount / $program->target_amount) * 100, 100) }}%"></div>
                         </div>
                     </div>
 
-                    {{-- LOGIKA AUTENTIKASI --}}
+                    {{-- Autentikasi --}}
                     @guest
-                    {{-- JIKA USER BELUM LOGIN: Arahkan ke Halaman Login --}}
                     <a href="{{ route('login') }}" class="w-full block text-center bg-gradient-to-r from-hati-red to-red-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-red-200 hover:-translate-y-1 transition duration-300 mb-3">
                         DONASI SEKARANG <i class="fas fa-arrow-right ml-1"></i>
                     </a>
@@ -108,7 +135,6 @@
                     @endguest
 
                     @auth
-                    {{-- JIKA USER SUDAH LOGIN: Arahkan ke Aksi Sebenarnya --}}
                     <a href="{{ route('checkout', $program->id) }}" class="w-full block text-center bg-gradient-to-r from-hati-red to-red-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-red-200 hover:-translate-y-1 transition duration-300 mb-3">
                         DONASI SEKARANG <i class="fas fa-arrow-right ml-1"></i>
                     </a>
@@ -149,7 +175,7 @@
 <script>
     // Script untuk Chart.js (Warna Chart disesuaikan)
     const ctx = document.getElementById('allocationChart');
-    // Pastikan variabel $allocations dilewatkan dari controller
+    // Pastikan variabel $allocations dilewatkan dari controller sebagai array [{ allocation_name, percentage }, ...]
     const dataAlloc = @json($allocations ?? []);
 
     // Default data jika kosong
@@ -157,33 +183,35 @@
     // Jika data tidak ada, gunakan persentase default
     let values = dataAlloc.length ? dataAlloc.map(d => parseFloat(d.percentage)) : [80, 15, 5];
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: values,
-                // Warna diubah ke palet Saku Hati
-                backgroundColor: ['#14b8a6', '#0f766e', '#ef4444', '#f59e0b'],
-                borderWidth: 0,
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        boxWidth: 10,
-                        font: {
-                            size: 10
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    // Warna diubah ke palet Saku Hati
+                    backgroundColor: ['#14b8a6', '#0f766e', '#ef4444', '#f59e0b'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 10,
+                            font: {
+                                size: 10
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    }
 </script>
 @endsection

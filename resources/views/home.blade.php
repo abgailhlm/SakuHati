@@ -8,8 +8,8 @@
     </div>
 
     <div class="container mx-auto relative z-10 px-6">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Transparansi untuk Kebaikan Nyata</h1>
-        <p class="text-teal-100 text-lg mb-12 max-w-2xl mx-auto">Platform donasi terpercaya dengan laporan real-time, melacak donasi, dan bukti penyaluran langsung dari lapangan.</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Mengubah Receh Jadi Senyum Bahagia</h1>
+        <p class="text-teal-100 text-lg mb-12 max-w-2xl mx-auto">Berbagi Lebih Mudah, Lebih Jelas, dan Lebih Terpercaya.</p>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 

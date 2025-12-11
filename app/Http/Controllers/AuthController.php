@@ -10,8 +10,18 @@ use App\Models\User;
 class AuthController extends Controller
 {
     // 1. TAMPILKAN FORM LOGIN
-    public function showLogin()
+    public function showLogin(Request $request)
     {
+        $previous = url()->previous();
+
+        if (
+            !$request->session()->has('url.intended') &&
+            $previous !== route('login') &&
+            $previous !== route('register')
+        ) {
+            $request->session()->put('url.intended', $previous);
+        }
+
         return view('auth.login');
     }
 
@@ -25,6 +35,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()->intended('dashboard');
         }
 
@@ -34,8 +45,18 @@ class AuthController extends Controller
     }
 
     // 3. TAMPILKAN FORM REGISTER
-    public function showRegister()
+    public function showRegister(Request $request)
     {
+        $previous = url()->previous();
+
+        if (
+            !$request->session()->has('url.intended') &&
+            $previous !== route('login') &&
+            $previous !== route('register')
+        ) {
+            $request->session()->put('url.intended', $previous);
+        }
+
         return view('auth.register');
     }
 
@@ -57,7 +78,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect()->intended('dashboard');
     }
 
     // 5. PROSES LOGOUT
