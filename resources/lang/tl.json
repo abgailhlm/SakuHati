@@ -1,0 +1,19 @@
+{
+  "form.title": "Pagpaparehistro ng Mag-aaral",
+  "form.nim": "Student ID",
+  "form.nim_placeholder": "Ilagay ang Student ID",
+  "form.nim_required_info": "Kailangan punan ang Student ID.",
+  "form.name": "Buong Pangalan",
+  "form.name_placeholder": "Ilagay ang buong pangalan",
+  "form.gender": "Kasarian",
+  "form.male": "Lalaki",
+  "form.female": "Babae",
+  "form.major": "Kurso",
+  "form.select_major": "-- Piliin ang Kurso --",
+  "form.majors.ti": "Computer Science",
+  "form.majors.si": "Information Systems",
+  "form.majors.tk": "Computer Engineering",
+  "form.address": "Address",
+  "form.submit": "Magrehistro",
+  "form.success": "Matagumpay ang pagpaparehistro (demo)."
+}
