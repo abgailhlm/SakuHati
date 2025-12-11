@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder
     {
         // === DATA PROGRAM (10 Program Lengkap + Lokasi Penyaluran) ===
         $programsData = [
-            // 1. Pembangunan Sumur Air Bersih Darurat (Urgent)
             [
                 'title' => 'Pembangunan Sumur Air Bersih Darurat',
                 'description' => 'Aksi tanggap cepat membangun sumur bor di desa yang mengalami krisis air parah di Nusa Tenggara Timur. Setiap donasi menyelamatkan nyawa dan menjadi pahala jariyah.',
@@ -25,7 +24,6 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Nusa Tenggara Timur',
                 'created_at' => now(),
             ],
-            // 2. Bantuan Makanan Darurat – Lombok
             [
                 'title' => 'Bantuan Makanan Darurat – Lombok',
                 'description' => 'Menyediakan paket makanan segera untuk keluarga yang terkena dampak bencana di Lombok.',
@@ -38,7 +36,6 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Lombok, Nusa Tenggara Barat',
                 'created_at' => now()->subDays(1),
             ],
-            // 3. Layanan Kesehatan untuk Pengungsi
             [
                 'title' => 'Layanan Kesehatan untuk Pengungsi',
                 'description' => 'Mendukung kebutuhan kesehatan bagi keluarga yang mengungsi. Menyediakan obat-obatan, konsultasi, dan layanan kesehatan dasar.',
@@ -51,7 +48,6 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Pos Pengungsian, Jawa Barat',
                 'created_at' => now()->subDays(2),
             ],
-            // 4. Dukungan Pendidikan Anak
             [
                 'title' => "Dukungan Pendidikan Anak",
                 'description' => 'Membantu mendanai perlengkapan sekolah dan program belajar untuk anak-anak kurang mampu.',
@@ -64,10 +60,9 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Jakarta Timur, DKI Jakarta',
                 'created_at' => now()->subDays(3),
             ],
-            // 5. Akses Air Bersih di Kenya
             [
                 'title' => 'Akses Air Bersih di Kenya',
-                'description' => 'Menyediakan sumber daya dan infrastruktur air untuk komunitas yang kekurangan akses air bersih. Membangun sumur dan sistem filtrasi air.',
+                'description' => 'Menyediakan sumber daya dan infrastruktur air untuk komunitas yang kekurangan akses air bersih.',
                 'image' => 'https://images.unsplash.com/photo-1541544181051-e46607bc22a4?w=800&q=80',
                 'category' => 'Normal',
                 'target_amount' => 60000000,
@@ -77,10 +72,9 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Turkana, Kenya',
                 'created_at' => now()->subDays(4),
             ],
-            // 6. Program Penampungan Pemulihan Bencana
             [
                 'title' => 'Program Penampungan Pemulihan Bencana',
-                'description' => 'Membangun tempat penampungan sementara bagi keluarga yang mengungsi akibat bencana alam. Menyediakan perumahan aman dan kebutuhan hidup esensial.',
+                'description' => 'Membangun tempat penampungan sementara bagi keluarga yang mengungsi akibat bencana alam.',
                 'image' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80',
                 'category' => 'Darurat',
                 'target_amount' => 25000000,
@@ -90,10 +84,9 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Cianjur, Jawa Barat',
                 'created_at' => now()->subDays(5),
             ],
-            // 7. Inisiatif Gizi Komunitas
             [
                 'title' => 'Inisiatif Gizi Komunitas',
-                'description' => 'Membantu mendanai program pencegahan malnutrisi di komunitas yang kurang terlayani. Menyediakan makanan bergizi dan edukasi kesehatan.',
+                'description' => 'Membantu pendanaan pencegahan malnutrisi dan menyediakan makanan bergizi.',
                 'image' => 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80',
                 'category' => 'Normal',
                 'target_amount' => 25000000,
@@ -103,10 +96,9 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Kupang, Nusa Tenggara Timur',
                 'created_at' => now()->subDays(6),
             ],
-            // 8. Dukungan Pendidikan Pedesaan
             [
                 'title' => 'Dukungan Pendidikan Pedesaan',
-                'description' => 'Mendirikan pusat pembelajaran dan menyediakan sumber daya edukasi untuk anak-anak di daerah pedesaan terpencil.',
+                'description' => 'Mendirikan pusat pembelajaran dan sumber edukasi untuk daerah terpencil.',
                 'image' => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=80',
                 'category' => 'Mendesak',
                 'target_amount' => 40000000,
@@ -116,10 +108,9 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Kabupaten Sumbawa, Nusa Tenggara Barat',
                 'created_at' => now()->subDays(7),
             ],
-            // 9. Dana Medis Darurat
             [
                 'title' => 'Dana Medis Darurat',
-                'description' => 'Dana tanggap cepat medis untuk komunitas yang terkena bencana dan keadaan darurat. Menyediakan perawatan medis dan suplai segera.',
+                'description' => 'Menyediakan perawatan medis dan suplai untuk keadaan darurat.',
                 'image' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80',
                 'category' => 'Darurat',
                 'target_amount' => 35000000,
@@ -129,10 +120,9 @@ class DatabaseSeeder extends Seeder
                 'destination_location' => 'Area Terdampak Bencana Nasional',
                 'created_at' => now()->subDays(8),
             ],
-            // 10. Perlengkapan Sekolah untuk Anak
             [
                 'title' => 'Perlengkapan Sekolah untuk Anak',
-                'description' => 'Menyediakan perlengkapan sekolah esensial termasuk tas, buku catatan, pulpen, dan buku pelajaran untuk siswa kurang mampu.',
+                'description' => 'Menyediakan tas, buku, dan alat sekolah untuk siswa kurang mampu.',
                 'image' => 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&q=80',
                 'category' => 'Mendesak',
                 'target_amount' => 12000000,
@@ -144,7 +134,7 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        // 1. DATA USER LOGIN
+        // === USER DEMO ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('users')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -157,7 +147,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
         ]);
 
-        // 2. DATA PROGRAM DONASI
+        // === PROGRAM ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('programs')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -171,7 +161,7 @@ class DatabaseSeeder extends Seeder
         $prog2 = $programIds[4];
         $prog3 = $programIds[3];
 
-        // 3. DATA DONASI
+        // === DONASI ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('donations')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -287,7 +277,7 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        // 4. DATA ALOKASI DANA
+        // === ALOKASI DANA ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('fund_allocations')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -298,7 +288,7 @@ class DatabaseSeeder extends Seeder
             ['program_id' => $prog1, 'allocation_name' => 'Obat-obatan', 'amount' => 50000000, 'percentage' => '10%', 'created_at' => now()],
         ]);
 
-        // 5. UPDATE CERITA
+        // === UPDATE PROGRAM ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('program_updates')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -306,13 +296,13 @@ class DatabaseSeeder extends Seeder
         DB::table('program_updates')->insert([
             'program_id' => $prog2,
             'title' => 'Air Sudah Mengalir!',
-            'content' => 'Alhamdulillah, pengeboran sedalam 60 meter berhasil mengeluarkan air bersih yang melimpah. Warga kini tidak perlu berjalan 5km lagi.',
+            'content' => 'Alhamdulillah pengeboran berhasil mengeluarkan air bersih melimpah.',
             'image_before' => 'https://via.placeholder.com/400x300/550000/FFFFFF?text=Tanah+Kering',
             'image_after' => 'https://via.placeholder.com/400x300/005500/FFFFFF?text=Air+Mengalir',
             'created_at' => now(),
         ]);
 
-        // 6. DATA TIM
+        // === DATA TIM ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('team_members')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -324,7 +314,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Nadya Angelie Lislie', 'position' => '2702321680', 'created_at' => now()],
         ]);
 
-        // 7. DATA MITRA
+        // === MITRA ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('partners')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -335,7 +325,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Baznas', 'logo_url' => 'baznas.png', 'type' => 'Mitra Strategis', 'created_at' => now()],
         ]);
 
-        // 8. DATA LEGALITAS
+        // === LEGALITAS ===
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('legal_documents')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

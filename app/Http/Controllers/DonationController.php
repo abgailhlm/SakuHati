@@ -30,18 +30,17 @@ class DonationController extends Controller
     {
         // 1. Validasi Jumlah Donasi + Metode Pembayaran
         $request->validate([
-            'amount'          => 'required|integer|min:10000', // Minimal Rp 10.000
-            'payment_method'  => 'required|in:qris,bank_transfer,e_wallet,card',
+            'amount'         => 'required|integer|min:10000',
+            'payment_method' => 'required|in:qris,bank_transfer,e_wallet,card',
         ]);
 
         $amount = $request->amount;
         $user = Auth::user();
 
-        // 2. LOGIKA PERHITUNGAN DAMPAK (BARU / gabungan)
-        $impactFormula = $program->impact_formula; // Contoh: "Rp 50.000 = 1 Paket Sembako Darurat"
+        // 2. LOGIKA PERHITUNGAN DAMPAK
+        $impactFormula = $program->impact_formula;
         $impactUnitCost = 0;
 
-        // Asumsi format formula adalah "Rp [COST] = [UNIT]"
         if (preg_match('/Rp\s([\d\.,]+)/', $impactFormula, $matches)) {
             $impactUnitCost = (int) str_replace(['.', ','], '', $matches[1]);
         }
@@ -60,20 +59,22 @@ class DonationController extends Controller
 
             // Simpan ke Tabel Donations
             DB::table('donations')->insert([
-                'program_id'      => $program->id,
-                'user_id'         => $user->id,
-                'donor_name'      => $user->name,
-                'donor_email'     => $user->email,
-                'tracking_code'   => $trackingCode,
-                'amount'          => $amount,
-                'payment_method'  => $request->payment_method,
-                'status'          => 'verified',
-                'created_at'      => now(),
-                'updated_at'      => now(),
+                'program_id'     => $program->id,
+                'user_id'        => $user->id,
+                'donor_name'     => $user->name,
+                'donor_email'    => $user->email,
+                'tracking_code'  => $trackingCode,
+                'amount'         => $amount,
+                'payment_method' => $request->payment_method,
+                'status'         => 'verified',
+                'created_at'     => now(),
+                'updated_at'     => now(),
             ]);
 
             // Update collected_amount
-            DB::table('programs')->where('id', $program->id)->increment('collected_amount', $amount);
+            DB::table('programs')
+                ->where('id', $program->id)
+                ->increment('collected_amount', $amount);
 
             DB::commit();
 
@@ -98,7 +99,8 @@ class DonationController extends Controller
     public function success(Request $request)
     {
         if (!$request->code) {
-            return redirect()->route('home')->with('error', 'Akses tidak sah ke halaman sukses.');
+            return redirect()->route('home')
+                ->with('error', 'Akses tidak sah ke halaman sukses.');
         }
 
         return view('donation_success', [

@@ -37,7 +37,7 @@
                 <div class="space-y-3 mb-6">
                     <h3 class="font-bold text-gray-800">Pilih Nominal Cepat:</h3>
                     <div class="grid grid-cols-3 gap-3">
-                        @foreach ([50000, 100000, 250000, 500000, 1000000, 5000000] as $preset)
+                        @foreach([50000, 100000, 250000, 500000, 1000000, 5000000] as $preset)
                         <button type="button"
                             onclick="document.getElementById('amount').value = {{ $preset }}"
                             class="bg-teal-50 text-saku-dark font-semibold py-2 rounded-lg border border-teal-100 hover:bg-teal-100 transition text-sm">
@@ -47,6 +47,7 @@
                     </div>
                 </div>
 
+                {{-- Payment Method Selection --}}
                 <div class="mt-6">
                     <label class="block text-sm font-medium text-gray-700 mb-3">
                         Pilih Metode Pembayaran

@@ -8,14 +8,17 @@
     </div>
 
     <div class="container mx-auto relative z-10 px-6">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Mengubah Receh Jadi Senyum Bahagia</h1>
-        <p class="text-teal-100 text-lg mb-12 max-w-2xl mx-auto">Berbagi Lebih Mudah, Lebih Jelas, dan Lebih Terpercaya.</p>
+        {{-- START: Merged Hero Heading --}}
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Transparansi untuk Kebaikan Nyata</h1>
+        <p class="text-teal-100 text-lg mb-12 max-w-2xl mx-auto">Platform donasi terpercaya dengan laporan real-time, melacak donasi, dan bukti penyaluran langsung dari lapangan.</p>
+        {{-- END: Merged Hero Heading --}}
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
             <a href="{{ route('track') }}" class="group block p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition transform cursor-pointer shadow-lg">
                 <h3 class="text-3xl font-bold text-teal-300 group-hover:text-white transition">Rp {{ number_format($stats['total_donasi'] / 1000000, 0) }} Jt+</h3>
                 <p class="text-sm font-medium text-teal-100 mt-1 flex justify-center items-center gap-2">
+                    {{-- Retained the cleaner spacing from fix-bug --}}
                     Donasi Terkumpul <i class="fas fa-search-dollar opacity-0 group-hover:opacity-100 transition"></i>
                 </p>
             </a>
@@ -27,7 +30,8 @@
                 </p>
             </a>
 
-            <a href="{{ route('about') }}" class="group block p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition transform cursor-pointer shadow-lg">
+            {{-- Merged the anchor tag destination to #program-list (from fix-bug) --}}
+            <a href="#program-list" class="group block p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition transform cursor-pointer shadow-lg">
                 <h3 class="text-3xl font-bold text-hati-red group-hover:text-white transition">{{ number_format($stats['penerima_manfaat']) }}</h3>
                 <p class="text-sm font-medium text-teal-100 mt-1 flex justify-center items-center gap-2">
                     Penerima Manfaat <i class="fas fa-smile-beam opacity-0 group-hover:opacity-100 transition"></i>
@@ -37,7 +41,8 @@
             <a href="{{ route('register') }}" class="group block p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:bg-white/20 hover:scale-105 transition transform cursor-pointer shadow-lg">
                 <h3 class="text-3xl font-bold text-cyan-300 group-hover:text-white transition">{{ number_format($stats['donatur']) }}</h3>
                 <p class="text-sm font-medium text-teal-100 mt-1 flex justify-center items-center gap-2">
-                    Orang Baik <i class="fas fa-user-plus opacity-0 group-hover:opacity-100 transition"></i>
+                    {{-- Retained the more specific text from fix-bug --}}
+                    Donatur Aktif <i class="fas fa-user-plus opacity-0 group-hover:opacity-100 transition"></i>
                 </p>
             </a>
 
@@ -130,7 +135,7 @@
 
                 <div class="absolute top-4 right-4">
                     <span class="px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm
-                            {{ $prog->category == 'Darurat' ? 'bg-hati-red animate-pulse' : 'bg-saku-primary' }}">
+                                {{ $prog->category == 'Darurat' ? 'bg-hati-red animate-pulse' : 'bg-saku-primary' }}">
                         {{ $prog->category }}
                     </span>
                 </div>

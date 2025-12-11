@@ -4,6 +4,14 @@
 <div class="bg-gray-50 min-h-screen py-10">
     <div class="container mx-auto px-6">
 
+        {{-- START: Session Success Message (from fix-bug) --}}
+        @if(session('success'))
+        <div class="mb-6 text-sm text-green-700 bg-green-100 px-4 py-3 rounded-lg border border-green-200 shadow-sm">
+            {{ session('success') }}
+        </div>
+        @endif
+        {{-- END: Session Success Message --}}
+
         <div class="bg-gradient-to-r from-saku-primary to-saku-dark rounded-2xl p-8 text-white shadow-xl mb-10 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
                 <div class="flex items-center gap-4 mb-2">
@@ -104,13 +112,37 @@
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <h3 class="font-bold text-gray-800 mb-4">Pengaturan Akun</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li class="cursor-pointer hover:text-saku-primary flex items-center gap-2"><i class="fas fa-user-edit w-5"></i> Edit Profil</li>
-                        <li class="cursor-pointer hover:text-saku-primary flex items-center gap-2"><i class="fas fa-lock w-5"></i> Ganti Kata Sandi</li>
-                        <li class="cursor-pointer hover:text-hati-red flex items-center gap-2 text-hati-red mt-4 border-t pt-4"><i class="fas fa-sign-out-alt w-5"></i> Keluar</li>
-                    </ul>
-                </div>
 
+                    {{-- START: Account Settings Links (from fix-bug, using proper routes) --}}
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        {{-- Edit Profil --}}
+                        <li>
+                            <a href="{{ route('profile.edit') }}"
+                                class="flex items-center gap-2 hover:text-saku-primary">
+                                <i class="fas fa-user-edit w-5"></i> Edit Profil
+                            </a>
+                        </li>
+
+                        {{-- Ganti Kata Sandi --}}
+                        <li>
+                            <a href="{{ route('password.change') }}"
+                                class="flex items-center gap-2 hover:text-saku-primary">
+                                <i class="fas fa-lock w-5"></i> Ganti Kata Sandi
+                            </a>
+                        </li>
+
+                        {{-- Logout --}}
+                        <li class="mt-4 border-t pt-4">
+                            <form action="{{ route('logout') }}" method="POST" class="flex items-center gap-2">
+                                @csrf
+                                <button type="submit" class="flex items-center gap-2 text-hati-red hover:text-hati-red">
+                                    <i class="fas fa-sign-out-alt w-5"></i> Keluar
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                    {{-- END: Account Settings Links --}}
+                </div>
             </div>
         </div>
 

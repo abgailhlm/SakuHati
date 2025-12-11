@@ -35,7 +35,6 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
             return redirect()->intended('dashboard');
         }
 
@@ -66,7 +65,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed', // butuh field password_confirmation di view
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = User::create([
