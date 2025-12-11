@@ -1,0 +1,19 @@
+{
+  "form.title": "Pendaftaran Mahasiswa",
+  "form.nim": "NIM",
+  "form.nim_placeholder": "Masukkan NIM",
+  "form.nim_required_info": "Nim wajib diisi.",
+  "form.name": "Nama Lengkap",
+  "form.name_placeholder": "Masukkan nama lengkap",
+  "form.gender": "Jenis Kelamin",
+  "form.male": "Laki-laki",
+  "form.female": "Perempuan",
+  "form.major": "Jurusan",
+  "form.select_major": "-- Pilih Jurusan --",
+  "form.majors.ti": "Teknik Informatika",
+  "form.majors.si": "Sistem Informasi",
+  "form.majors.tk": "Teknik Komputer",
+  "form.address": "Alamat",
+  "form.submit": "Daftar",
+  "form.success": "Pendaftaran berhasil (demo)."
+}
