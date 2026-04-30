@@ -34,53 +34,96 @@
 
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen font-sans">
 
+    {{-- START: PERBAIKAN NAVBAR --}}
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-6 py-4">
 
-            <a href="{{ route('home') }}" class="flex items-center gap-3 hover:opacity-90 transition">
-                <img src="/images/logo-saku-hati.png" alt="Logo Saku Hati" class="h-10 w-auto">
-            </a>
+            <div class="flex justify-between items-center">
+                {{-- Logo --}}
+                <a href="{{ route('home') }}" class="flex items-center gap-3 hover:opacity-90 transition">
+                    {{-- Asumsi: route('home') adalah route yang benar --}}
+                    <img src="/images/logo-saku-hati.png" alt="Logo Saku Hati" class="h-10 w-auto">
+                </a>
 
-            <div class="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-600">
-                <a href="{{ route('home') }}" class="hover:text-saku-primary transition {{ request()->routeIs('home') ? 'text-saku-primary font-bold' : '' }}">Beranda</a>
-                <a href="{{ route('track') }}" class="hover:text-saku-primary transition {{ request()->routeIs('track') ? 'text-saku-primary font-bold' : '' }}">Lacak Donasi</a>
-                <a href="{{ route('about') }}" class="hover:text-saku-primary transition {{ request()->routeIs('about') ? 'text-saku-primary font-bold' : '' }}">Tentang Kami</a>
+                {{-- Navigasi Desktop --}}
+                <div class="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-600">
+                    <a href="{{ route('home') }}" class="hover:text-saku-primary transition {{ request()->routeIs('home') ? 'text-saku-primary font-bold' : '' }}">Beranda</a>
+                    <a href="{{ route('track') }}" class="hover:text-saku-primary transition {{ request()->routeIs('track') ? 'text-saku-primary font-bold' : '' }}">Lacak Donasi</a>
+                    <a href="{{ route('about') }}" class="hover:text-saku-primary transition {{ request()->routeIs('about') ? 'text-saku-primary font-bold' : '' }}">Tentang Kami</a>
 
-                @auth
-                {{-- TAMPIL JIKA PENGGUNA SUDAH MASUK --}}
-                <div class="flex items-center gap-4 pl-4 border-l border-gray-200">
+                    @auth
+                    {{-- TAMPIL JIKA PENGGUNA SUDAH MASUK --}}
+                    <div class="flex items-center gap-4 pl-4 border-l border-gray-200">
+                        <a href="{{ route('dashboard') ?? '#' }}" class="flex items-center gap-2 text-saku-primary font-bold hover:bg-teal-50 px-3 py-2 rounded-lg transition">
+                            <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-saku-primary">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span>{{ Auth::user()->name }}</span>
+                        </a>
 
-                    {{-- Tautan Utama ke Dashboard --}}
-                    <a href="{{ route('dashboard') ?? '#' }}" class="flex items-center gap-2 text-saku-primary font-bold hover:bg-teal-50 px-3 py-2 rounded-lg transition">
-                        <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-saku-primary">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>{{ Auth::user()->name }}</span>
-                    </a>
-
-                    <form action="{{ route('logout') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" class="text-red-500 hover:text-red-700 font-bold text-sm flex items-center gap-1 transition">
-                            <i class="fas fa-sign-out-alt"></i> Keluar
-                        </button>
-                    </form>
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-red-500 hover:text-red-700 font-bold text-sm flex items-center gap-1 transition">
+                                <i class="fas fa-sign-out-alt"></i> Keluar
+                            </button>
+                        </form>
+                    </div>
+                    @else
+                    {{-- TAMPIL JIKA PENGGUNA BELUM MASUK --}}
+                    <div class="flex items-center gap-2 ml-4 pl-4 border-l border-gray-200">
+                        <a href="{{ route('login') }}" class="text-gray-600 hover:text-saku-primary font-bold px-4 py-2 transition">Masuk</a>
+                        <a href="{{ route('register') }}" class="bg-saku-primary text-white px-6 py-2.5 rounded-full hover:bg-saku-dark transition shadow-md shadow-teal-500/20 font-bold">
+                            Daftar
+                        </a>
+                    </div>
+                    @endauth
                 </div>
-                @else
-                {{-- TAMPIL JIKA PENGGUNA BELUM MASUK --}}
-                <div class="flex items-center gap-2 ml-4 pl-4 border-l border-gray-200">
-                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-saku-primary font-bold px-4 py-2 transition">Masuk</a>
-                    <a href="{{ route('register') }}" class="bg-saku-primary text-white px-6 py-2.5 rounded-full hover:bg-saku-dark transition shadow-md shadow-teal-500/20 font-bold">
-                        Daftar
-                    </a>
-                </div>
-                @endauth
+
+                {{-- Tombol Burger Menu (Mobile) --}}
+                <button id="menu-toggle" class="md:hidden text-gray-500 text-xl cursor-pointer hover:text-saku-primary focus:outline-none focus:ring-2 focus:ring-saku-primary rounded-md p-1 transition">
+                    <i id="menu-icon" class="fas fa-bars"></i>
+                </button>
             </div>
 
-            <div class="md:hidden text-gray-500 text-xl cursor-pointer hover:text-saku-primary">
-                <i class="fas fa-bars"></i>
+        </div>
+
+        {{-- Dropdown Menu Mobile --}}
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 pb-2">
+            <a href="{{ route('home') }}" class="block px-6 py-3 text-sm font-medium text-gray-700 hover:bg-teal-50 hover:text-saku-primary {{ request()->routeIs('home') ? 'bg-teal-50 text-saku-primary font-bold' : '' }}">
+                <i class="fas fa-home mr-2 w-5 text-center"></i> Beranda
+            </a>
+            <a href="{{ route('track') }}" class="block px-6 py-3 text-sm font-medium text-gray-700 hover:bg-teal-50 hover:text-saku-primary {{ request()->routeIs('track') ? 'bg-teal-50 text-saku-primary font-bold' : '' }}">
+                <i class="fas fa-search-dollar mr-2 w-5 text-center"></i> Lacak Donasi
+            </a>
+            <a href="{{ route('about') }}" class="block px-6 py-3 text-sm font-medium text-gray-700 hover:bg-teal-50 hover:text-saku-primary {{ request()->routeIs('about') ? 'bg-teal-50 text-saku-primary font-bold' : '' }}">
+                <i class="fas fa-info-circle mr-2 w-5 text-center"></i> Tentang Kami
+            </a>
+
+            <div class="px-6 pt-3 border-t mt-2">
+                @auth
+                {{-- Opsi Logout & Dashboard saat login --}}
+                <a href="{{ route('dashboard') ?? '#' }}" class="block w-full text-center bg-teal-50 text-saku-primary py-2 rounded-lg font-bold hover:bg-teal-100 transition mb-2">
+                    <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                </a>
+                <form action="{{ route('logout') }}" method="POST" class="inline block w-full">
+                    @csrf
+                    <button type="submit" class="w-full text-center text-red-500 py-2 rounded-lg font-bold hover:bg-red-50 transition">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+                    </button>
+                </form>
+                @else
+                {{-- Opsi Masuk & Daftar saat belum login --}}
+                <a href="{{ route('login') }}" class="block w-full text-center bg-saku-primary text-white py-2 rounded-lg font-bold hover:bg-saku-dark transition shadow-md mb-2">
+                    Masuk
+                </a>
+                <a href="{{ route('register') }}" class="block w-full text-center border border-saku-primary text-saku-primary py-2 rounded-lg font-bold hover:bg-teal-50 transition">
+                    Daftar
+                </a>
+                @endauth
             </div>
         </div>
     </nav>
+    {{-- END: PERBAIKAN NAVBAR --}}
 
     <main class="flex-grow">
         @yield('content')
@@ -127,6 +170,31 @@
             </div>
         </div>
     </footer>
+
+    {{-- Script untuk Fungsionalitas Burger Menu --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            if (toggleButton && mobileMenu && menuIcon) {
+                toggleButton.addEventListener('click', function() {
+                    // Toggle kelas 'hidden' untuk menampilkan/menyembunyikan menu
+                    mobileMenu.classList.toggle('hidden');
+
+                    // Ganti ikon burger menjadi X, atau sebaliknya
+                    if (mobileMenu.classList.contains('hidden')) {
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    } else {
+                        menuIcon.classList.remove('fa-bars');
+                        menuIcon.classList.add('fa-times');
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 

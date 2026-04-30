@@ -54,6 +54,14 @@
                 </div>
             </div>
 
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div></div>
+                <a href="{{ route('password.request') }}"
+                class="font-medium text-saku-primary hover:text-saku-dark font-bold">
+                    Lupa password?
+                </a>
+            </div>
+
             <div>
                 {{-- TOMBOL DIUBAH KE SAKU PRIMARY --}}
                 <button type="submit"

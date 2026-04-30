@@ -38,6 +38,12 @@ Route::post('/register', [AuthController::class, 'register']);
 // Logout (Harus bisa diakses publik untuk pengguna yang sudah login)
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Lupa dan Reset Password
+Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'processForgotPassword'])->name('password.process');
+
+Route::get('/reset-password/{id}', [AuthController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/reset-password/{id}', [AuthController::class, 'resetPassword'])->name('password.update');
 
 // ===================================
 // RUTE KHUSUS MEMBER (Harus Login)

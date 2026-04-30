@@ -63,8 +63,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:255|unique:users,name',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -87,5 +87,47 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    // 6. RESET PASSWORD
+    public function showForgotPassword()
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function processForgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user) {
+            return back()->withErrors([
+                'email' => 'Email tidak ditemukan.'
+            ]);
+        }
+
+        return redirect()->route('password.reset', $user->id);
+    }
+
+    public function showResetPassword($id)
+    {
+        $user = User::findOrFail($id);
+        return view('auth.reset-password', compact('user'));
+    }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Password berhasil direset. Silakan login.');
     }
 }
